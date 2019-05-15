@@ -25,8 +25,31 @@ doubleEveryOtherCases = [
     ([1,2,3], [1,4,3])
   ]
 
-testDoubleEveryOtherCase n expected = TestCase $ assertEqual ("for (doubleEveryOther "++(show n)++"),") expected (doubleEveryOther n)
+testDoubleEveryOtherCase xs expected = TestCase $ assertEqual ("for (doubleEveryOther "++(show xs)++"),") expected (doubleEveryOther xs)
 testDoubleEveryOther = TestLabel "doubleEveryOther" $ TestList (map (uncurry testDoubleEveryOtherCase) doubleEveryOtherCases)
 
+sumDigitsCases = [
+    ([16,7,12,5], 22),
+    ([16,2], 9)
+  ]
+
+testSumDigitsCase xs expected = TestCase $ assertEqual ("for (sumDigits "++(show xs)++"),") expected (sumDigits xs)
+testSumDigits = TestLabel "sumDigits" $ TestList (map (uncurry testSumDigitsCase) sumDigitsCases)
+
+validateCases = [
+    (4012888888881881, True),
+    (4012888888881882, False),
+    (-4012888888881881, False),
+    (0, False)
+  ]
+
+testValidateCase n expected = TestCase $ assertEqual ("for (validate "++(show n)++"),") expected (validate n)
+testValidate = TestLabel "validate" $ TestList (map (uncurry testValidateCase) validateCases)
+
+
 main :: IO Counts
-main = runTestTT $ TestList [testToDigits, testToDigitsRev, testDoubleEveryOther]
+main = runTestTT $ TestList [testToDigits,
+    testToDigitsRev,
+    testDoubleEveryOther,
+    testSumDigits,
+    testValidate]
