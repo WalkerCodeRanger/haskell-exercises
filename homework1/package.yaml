@@ -2,13 +2,12 @@ name:                homework1
 version:             0.1.0.0
 github:              "WalkerCodeRanger/haskell-exercises-cis194-spring13"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2019 Author name here"
+author:              "Jeff Walker"
+maintainer:          "Jeff@WalkerCodeRanger.com"
+copyright:           "2019 Jeff Walker"
 
 extra-source-files:
 - README.md
-- ChangeLog.md
 
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
