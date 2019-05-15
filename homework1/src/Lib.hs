@@ -14,5 +14,5 @@ toDigitsRev n = reverse (toDigits n)
 -- from the last, the fourth from the last, etc.
 doubleEveryOther :: [Integer] -> [Integer]
 doubleEveryOther l = reverse l
-    & (zipWith (\d n -> if d then n*2 else n) (cycle [False, True]))
+    & (zipWith (*) (cycle [1, 2]))
     & reverse
