@@ -46,10 +46,18 @@ validateCases = [
 testValidateCase n expected = TestCase $ assertEqual ("for (validate "++(show n)++"),") expected (validate n)
 testValidate = TestLabel "validate" $ TestList (map (uncurry testValidateCase) validateCases)
 
+hanoiCases = [
+    ((2,"a","b","c"), [("a","c"), ("a","b"), ("c","b")]),
+    ((2,"x","y","z"), [("x","z"), ("x","y"), ("z","y")])
+  ]
+
+testHanoiCase (disks,a,b,c) expected = TestCase $ assertEqual ("for (hanoi "++(show disks)++" "++(show a)++" "++(show b)++" "++(show c)++"),") expected (hanoi disks a b c)
+testHanoi = TestLabel "hanoi" $ TestList (map (uncurry testHanoiCase) hanoiCases)
 
 main :: IO Counts
 main = runTestTT $ TestList [testToDigits,
     testToDigitsRev,
     testDoubleEveryOther,
     testSumDigits,
-    testValidate]
+    testValidate,
+    testHanoi]

@@ -34,3 +34,16 @@ validate :: Integer -> Bool
 validate n
   | n > 0 = (sumDigits . doubleEveryOther . toDigits $ n) `mod` 10 == 0
   | otherwise = False
+
+-- Exercise 5
+
+type Peg = String
+type Move = (Peg, Peg)
+
+-- Returns a list of moves to move the stated number of disks from the first peg
+-- to the second peg using the third peg as temp space
+hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+hanoi disks from to temp
+  | disks == 0 = []
+  | otherwise = (hanoi (disks-1) from temp to)
+    ++ (from, to) : (hanoi (disks-1) temp to from)
