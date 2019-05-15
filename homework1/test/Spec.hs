@@ -20,5 +20,13 @@ toDigitsRevCases = [
 testToDigitsRevCase n expected = TestCase $ assertEqual ("for (toDigitsRev "++(show n)++"),") expected (toDigitsRev n)
 testToDigitsRev = TestLabel "toDigitsRev" $ TestList (map (uncurry testToDigitsRevCase) toDigitsRevCases)
 
+doubleEveryOtherCases = [
+    ([8,7,6,5], [16,7,12,5]),
+    ([1,2,3], [1,4,3])
+  ]
+
+testDoubleEveryOtherCase n expected = TestCase $ assertEqual ("for (doubleEveryOther "++(show n)++"),") expected (doubleEveryOther n)
+testDoubleEveryOther = TestLabel "doubleEveryOther" $ TestList (map (uncurry testDoubleEveryOtherCase) doubleEveryOtherCases)
+
 main :: IO Counts
-main = runTestTT $ TestList [testToDigits, testToDigitsRev]
+main = runTestTT $ TestList [testToDigits, testToDigitsRev, testDoubleEveryOther]
