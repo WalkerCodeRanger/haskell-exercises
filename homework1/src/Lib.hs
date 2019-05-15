@@ -16,3 +16,6 @@ doubleEveryOther :: [Integer] -> [Integer]
 doubleEveryOther l = reverse l
     & (zipWith (*) (cycle [1, 2]))
     & reverse
+
+sumDigits :: [Integer] -> Integer
+sumDigits = sum
