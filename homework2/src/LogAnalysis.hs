@@ -18,7 +18,8 @@ parse :: String -> [LogMessage]
 parse file = map parseMessage (lines file)
 
 -- Exercise 2
-
+-- Insert a log message into a sorted log tree. If the message is unkown, return
+-- the tree unmodified
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) tree = tree
 insert msg Leaf = Node Leaf msg Leaf
@@ -28,3 +29,8 @@ insert msg@(LogMessage _ msgTimeStamp _) (Node left rootMsg@(LogMessage _ rootTi
   else
     Node left rootMsg (insert msg right)
 insert LogMessage{} (Node _ (Unknown _) _) = error "MessageTree contains Unknown"
+
+-- Exercise 3
+-- Build a message tree from a list of log messages
+build :: [LogMessage] -> MessageTree
+build msgs = foldl (flip insert) Leaf msgs
