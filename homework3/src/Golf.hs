@@ -23,7 +23,6 @@ skip l n = case drop n l of
 -- Find all elements that are greater than the element before and after them.
 -- Note first and last can never be local maxima.
 localMaxima :: [Integer] -> [Integer]
-localMaxima (a:b:c:r)
-  | a < b && b > c = b:(localMaxima $ b:c:r)
-  | otherwise = (localMaxima $ b:c:r)
+localMaxima (a:b:c:r) = let l = localMaxima $ b:c:r in
+  if a < b && b > c then b:l else l
 localMaxima _ = []
