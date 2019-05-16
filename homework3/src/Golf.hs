@@ -1,5 +1,8 @@
 module Golf where
 
+-- Note: The stated goal of this is to get the actual code as short as possible,
+-- not counting imports, comments, whitespace and type declarations
+
 -- Exercise 1
 
 -- returns all skips of a list, i.e. the first result is the original list, the
@@ -14,3 +17,13 @@ skip :: [a] -> Int -> [a]
 skip l n = case drop n l of
   [] -> []
   x:r -> x:(skip r n)
+
+-- Exercise 2
+
+-- Find all elements that are greater than the element before and after them.
+-- Note first and last can never be local maxima.
+localMaxima :: [Integer] -> [Integer]
+localMaxima (a:b:c:r)
+  | a < b && b > c = b:(localMaxima $ b:c:r)
+  | otherwise = (localMaxima $ b:c:r)
+localMaxima _ = []
