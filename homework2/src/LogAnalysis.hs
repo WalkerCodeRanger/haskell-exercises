@@ -34,3 +34,11 @@ insert LogMessage{} (Node _ (Unknown _) _) = error "MessageTree contains Unknown
 -- Build a message tree from a list of log messages
 build :: [LogMessage] -> MessageTree
 build msgs = foldl (flip insert) Leaf msgs
+
+-- Excerise 4
+-- Given a message tree produce an list of log messages ordered by timestamp
+inOrder :: MessageTree -> [LogMessage]
+inOrder tree = inOrder' tree []
+    where
+      inOrder' Leaf msgs = msgs
+      inOrder' (Node left root right) msgs = (inOrder' left root:(inOrder' right msgs))
