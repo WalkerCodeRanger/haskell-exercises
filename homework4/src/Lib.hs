@@ -1,5 +1,7 @@
 module Lib where
 
+import Data.List
+
 -- Exercise 1
 
 fun1 :: [Integer] -> Integer
@@ -66,4 +68,19 @@ map' :: (a -> b) -> [a] -> [b]
 map' f = foldr (\x l -> f x : l) []
 
 myFoldl :: (a -> b -> a) -> a -> [b] -> a
-myFoldl f base xs = foldr (flip f) base . reverse
+myFoldl f base = foldr (flip f) base . reverse
+
+-- Exercise 4
+
+sieveSundaram :: Integer -> [Integer]
+sieveSundaram n = primes
+  where
+    remove = filter (<=n)
+              . map (\(i, j) -> i+j+2*i*j)
+              . filter (\(i, j) -> i <= j)
+              $ cartProd [1..n] [1..n]
+    remaining = [1..n] \\ remove
+    primes = map (\x -> 2*x+1) remaining
+
+cartProd :: [a] -> [b] -> [(a, b)]
+cartProd xs ys = [(x,y) | x <- xs, y <- ys]
