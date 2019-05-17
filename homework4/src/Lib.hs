@@ -55,3 +55,10 @@ treeBalanced (Node _ left _ right) =
   abs (treeHeight left - treeHeight right) <= 1
     && (treeBalanced left)
     && (treeBalanced right)
+
+-- Exercise 3
+
+xor :: [Bool] -> Bool
+xor = foldr xor' False
+  where xor' a b = (a || b) && not (a && b)
+
