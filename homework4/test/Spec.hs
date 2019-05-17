@@ -1,4 +1,11 @@
-import Test.HUnit
+import Test.Tasty
+-- import Test.Tasty.SmallCheck as SC
+-- import Test.Tasty.QuickCheck as QC
+import Test.Tasty.HUnit
 
-main :: IO Counts
-main = runTestTT $ TestList []
+main = defaultMain tests
+
+tests :: TestTree
+tests = testGroup "Tests" [{--properties, unitTests--}]
+
+

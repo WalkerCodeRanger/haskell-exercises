@@ -48,4 +48,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - homework4
-    - HUnit
+    - tasty
+    - tasty-hunit

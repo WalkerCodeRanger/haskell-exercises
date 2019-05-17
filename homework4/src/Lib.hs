@@ -9,16 +9,16 @@ fun1 (x:xs)
   | otherwise = fun1 xs
 
 fun1' :: [Integer] -> Integer
-fun1 = product . map (subtract 2) . filter even
+fun1' = product . map (subtract 2) . filter even
 
 fun2 :: Integer -> Integer
 fun2 1 = 0
 fun2 n
-  | even n = n + fun2 (n ‘div‘ 2)
+  | even n = n + fun2 (n `div` 2)
   | otherwise = fun2 (3 * n + 1)
 
 fun2' :: Integer -> Integer
-fun2' = sum . filter even . takeWhile (>1) . iterate next
+fun2' = sum . filter even . takeWhile (/=1) . iterate next
   where next n
           | even n = (n `div` 2)
           | otherwise = (3 * n + 1)
