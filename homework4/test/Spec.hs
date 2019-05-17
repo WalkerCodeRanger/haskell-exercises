@@ -11,12 +11,14 @@ tests :: TestTree
 tests = testGroup "Tests" [qcProps, unitTests]
 
 qcProps = testGroup "(checked by QuickCheck)"
-  [ QC.testProperty "fun1 == fun1'" $
+  [ QC.testProperty "fun1' == fun1" $
       \list -> fun1 list == fun1' list
-  , QC.testProperty "fun2 == fun2'" $
+  , QC.testProperty "fun2' == fun2" $
       \x -> fun2 x == fun2' x
   , QC.testProperty "treeBalanced . foldTree" $
       \list -> treeBalanced $ foldTree (list::[Int])
+  , QC.testProperty "map' == map" $
+    \list -> map' (* (2::Int)) list == map (* 2) list
   ]
 
 unitTests = testGroup "Unit tests"

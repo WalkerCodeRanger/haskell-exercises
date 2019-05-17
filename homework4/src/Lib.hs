@@ -62,3 +62,5 @@ xor :: [Bool] -> Bool
 xor = foldr xor' False
   where xor' a b = (a || b) && not (a && b)
 
+map' :: (a -> b) -> [a] -> [b]
+map' f = foldr (\x l -> f x : l) []
