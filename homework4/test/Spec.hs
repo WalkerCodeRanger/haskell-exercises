@@ -14,4 +14,6 @@ qcProps = testGroup "(checked by QuickCheck)"
       \list -> fun1 list == fun1' list
   , QC.testProperty "fun2 == fun2'" $
       \x -> fun2 x == fun2' x
+  , QC.testProperty "treeBalanced . foldTree" $
+      \list -> treeBalanced $ foldTree (list::[Int])
   ]
