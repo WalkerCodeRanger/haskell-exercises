@@ -50,3 +50,4 @@ tests:
     - homework4
     - tasty
     - tasty-hunit
+    - tasty-quickcheck
