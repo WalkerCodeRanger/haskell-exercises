@@ -64,3 +64,6 @@ xor = foldr xor' False
 
 map' :: (a -> b) -> [a] -> [b]
 map' f = foldr (\x l -> f x : l) []
+
+myFoldl :: (a -> b -> a) -> a -> [b] -> a
+myFoldl f base xs = foldr (flip f) base . reverse
