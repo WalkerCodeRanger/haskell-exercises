@@ -2,6 +2,7 @@ import Test.Tasty
 import Test.Tasty.QuickCheck as QC
 import Test.Tasty.HUnit
 
+import ExprT
 import Calc
 
 main = defaultMain tests
@@ -12,10 +13,10 @@ unitTests = testGroup "Unit tests"
   [ testCase "eval (Mul (Add (Lit 2) (Lit 3)) (Lit 4)) == 20" $
     20 @=? eval (Mul (Add (Lit 2) (Lit 3)) (Lit 4))
 
-  -- , testCase "xor [False, True, False, False, True] == False" $
-  --   False @=? xor [False, True, False, False, True]
-  -- , testCase "sieveSundaram 100" $
-  --   [3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
-  --   73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151,
-  --   157, 163, 167, 173, 179, 181, 191, 193, 197, 199] @=? sieveSundaram 100
+  , testCase "evalStr \"(2+3)*4\" == Just 20" $
+    Just 20 @=? evalStr "(2+3)*4"
+  , testCase "evalStr \"2+3*4\" == Just 14" $
+    Just 14 @=? evalStr "2+3*4"
+  , testCase "evalStr \"2+3*\" == Nothing" $
+    Nothing @=? evalStr "2+3*"
   ]
