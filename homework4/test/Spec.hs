@@ -24,7 +24,6 @@ qcProps = testGroup "(checked by QuickCheck)"
 unitTests = testGroup "Unit tests"
   [ testCase "xor [False, True, False] == True" $
     True @=? xor [False, True, False]
-
   , testCase "xor [False, True, False, False, True] == False" $
     False @=? xor [False, True, False, False, True]
   , testCase "sieveSundaram 100" $
