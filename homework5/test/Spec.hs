@@ -19,4 +19,6 @@ unitTests = testGroup "Unit tests"
     Just 14 @=? evalStr "2+3*4"
   , testCase "evalStr \"2+3*\" == Nothing" $
     Nothing @=? evalStr "2+3*"
+  , testCase "mul (add (lit 2) (lit 3)) (lit 4) :: ExprT == Mul (Add (Lit 2) (Lit 3)) (Lit 4)" $
+    Mul (Add (Lit 2) (Lit 3)) (Lit 4) @=? ((mul (add (lit 2) (lit 3)) (lit 4)) :: ExprT)
   ]
