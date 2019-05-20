@@ -5,6 +5,7 @@ import Test.Tasty.HUnit
 import Parser
 import ExprT
 import Calc
+import qualified StackVM as VM
 
 main = defaultMain tests
 
@@ -41,4 +42,7 @@ unitTests = testGroup "Unit tests"
     Just (MinMax 5) @=? testMM
   , testCase "testM7" $
     Just (Mod7 0) @=? testM7
+
+  , testCase "compile \"(3 * -4) + 5\"" $
+    Just (Right $ VM.IVal (-7)) @=? (VM.stackVM <$> compile "(3 * -4) + 5")
   ]

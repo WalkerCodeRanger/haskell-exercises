@@ -1,8 +1,11 @@
+{-# LANGUAGE TypeSynonymInstances, FlexibleInstances  #-}
+
 module Calc where
 
 import Data.Coerce
 import ExprT
 import Parser
+import qualified StackVM as VM
 
 -- Exercise 1
 eval :: ExprT -> Integer
@@ -52,4 +55,20 @@ instance Expr Mod7 where
   add x y = Mod7 $ ((coerce x) + (coerce y)) `mod` 7
   mul x y = Mod7 $ ((coerce x) * (coerce y)) `mod` 7
 
-  -- Exercise 5
+-- Exercise 5
+-- The directions for this exercise are a little confusing. Specifically, the
+-- part "For any arithmetic expression `exp :: Expr a => a` it should be the
+-- case that `stackVM exp == Right [IVal exp]`". This appears to imply that it
+-- should be possible to compile different instances of the type class Expr
+-- which wouldn't be possible. Also, the expression `Right [IVal exp]` doesn't
+-- seem to be well typed unless `exp :: Integer`. I'm interpreting this to mean
+-- for any arithmetic expression string the VM would produce the same result as
+-- the integer evaluator.
+
+instance Expr VM.Program where
+  lit i = [VM.PushI i]
+  add x y = x ++ y ++ [VM.Add]
+  mul x y = x ++ y ++ [VM.Mul]
+
+compile :: String -> Maybe VM.Program
+compile = parseExp lit add mul
