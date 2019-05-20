@@ -10,9 +10,11 @@ main = defaultMain tests
 
 tests = testGroup "Tests" [unitTests]
 
+-- testExp function provided as part of the assignment
 testExp :: Expr a => Maybe a
 testExp = parseExp lit add mul "(3 * -4) + 5"
 
+-- These test* functions were provided as part of the assignment
 testInteger = testExp :: Maybe Integer
 testBool = testExp :: Maybe Bool
 testMM = testExp :: Maybe MinMax

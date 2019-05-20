@@ -4,6 +4,7 @@ import Golf
 skipsCases = [
     ("ABCD", ["ABCD", "BD", "C", "D"]),
     ("hello!", ["hello!", "el!", "l!", "l", "o", "!"])--,
+    -- These sample cases can't be included in this list because of mixed types
     --([1], [[1]]),
     --([True,False], [[True,False], [False]]),
     --([], [])

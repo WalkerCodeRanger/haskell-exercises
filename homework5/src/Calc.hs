@@ -38,7 +38,7 @@ instance Expr Bool where
   add x y = x || y
   mul x y = x && y
 
--- These new types provided with question:
+-- These two new types provided with question:
 newtype MinMax = MinMax Integer deriving (Eq, Show)
 newtype Mod7 = Mod7 Integer deriving (Eq, Show)
 
@@ -51,3 +51,5 @@ instance Expr Mod7 where
   lit i = Mod7 $ i `mod` 7
   add x y = Mod7 $ ((coerce x) + (coerce y)) `mod` 7
   mul x y = Mod7 $ ((coerce x) * (coerce y)) `mod` 7
+
+  -- Exercise 5

@@ -1,4 +1,4 @@
--- Code provided as part of assignment
+-- This code file provided as part of assignment
 
 -- Applicative parser for infix arithmetic expressions without any
 -- dependency on hackage. Builds an explicit representation of the

@@ -37,6 +37,7 @@ validate n
 
 -- Exercise 5
 
+-- These two types provided as part of assignment
 type Peg = String
 type Move = (Peg, Peg)
 

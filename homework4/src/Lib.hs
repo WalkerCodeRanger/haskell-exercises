@@ -4,6 +4,7 @@ import Data.List
 
 -- Exercise 1
 
+-- fun1 function provided as part of assignment (fun1' is what I wrote)
 fun1 :: [Integer] -> Integer
 fun1 [] = 1
 fun1 (x:xs)
@@ -13,8 +14,9 @@ fun1 (x:xs)
 fun1' :: [Integer] -> Integer
 fun1' = product . map (subtract 2) . filter even
 
--- This example problem is based on the Collatz conjecture, however it isn't
--- valid for negative numbers. I've added a case to make that not run forever.
+-- fun2 function provided as part of assignment (fun2' is what I wrote)
+-- This problem is based on the Collatz conjecture, however it isn't valid for
+-- negative numbers. I've added a case to make that not run forever.
 fun2 :: Integer -> Integer
 fun2 1 = 0
 fun2 n
@@ -31,6 +33,7 @@ fun2' = sum . filter even . takeWhile (>1) . iterate next
 -- Exercise 2
 -- Generate a balanced binary tree using foldr
 
+-- Tree type provided as part of assignment
 data Tree a = Leaf
     | Node Integer (Tree a) a (Tree a)
   deriving (Show, Eq)
@@ -82,5 +85,7 @@ sieveSundaram n = primes
     remaining = [1..n] \\ remove
     primes = map (\x -> 2*x+1) remaining
 
+-- cartProd function provided as part of assignment
+-- The cartesian product of two lists
 cartProd :: [a] -> [b] -> [(a, b)]
 cartProd xs ys = [(x,y) | x <- xs, y <- ys]

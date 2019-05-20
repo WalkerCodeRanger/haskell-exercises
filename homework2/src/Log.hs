@@ -1,5 +1,4 @@
--- CIS 194 Homework 2
--- Code provided as part of assignment
+-- This code file provided as part of assignment
 
 module Log where
 
