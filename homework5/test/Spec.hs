@@ -45,4 +45,11 @@ unitTests = testGroup "Unit tests"
 
   , testCase "compile \"(3 * -4) + 5\"" $
     Just (Right $ VM.IVal (-7)) @=? (VM.stackVM <$> compile "(3 * -4) + 5")
+
+  , testCase "withVars [(\"x\", 6)] $ add (lit 3) (var \"x\")" $
+    Just 9 @=? (withVars [("x", 6)] $ add (lit 3) (var "x"))
+  , testCase "withVars [(\"x\", 6)] $ add (lit 3) (var \"y\")" $
+    Nothing @=? (withVars [("x", 6)] $ add (lit 3) (var "y"))
+  , testCase "withVars [(\"x\", 6), (\"y\", 3)] $ mul (var \"x\") (add (var \"y\") (var \"x\"))" $
+    Just 54 @=? (withVars [("x", 6), ("y", 3)] $ mul (var "x") (add (var "y") (var "x")))
   ]

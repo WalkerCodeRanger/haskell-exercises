@@ -6,6 +6,7 @@ import Data.Coerce
 import ExprT
 import Parser
 import qualified StackVM as VM
+import qualified Data.Map as M
 
 -- Exercise 1
 eval :: ExprT -> Integer
@@ -72,3 +73,38 @@ instance Expr VM.Program where
 
 compile :: String -> Maybe VM.Program
 compile = parseExp lit add mul
+
+-- Exercise 6
+class HasVars a where
+  var :: String -> a
+
+-- Due to stupid name conflicts because everything is in the same module, I'm
+-- naming these constructors differently so I don't have to qualify names
+-- everywhere. I don't like these names.
+data VarExprT = VLit Integer
+              | VAdd VarExprT VarExprT
+              | VMul VarExprT VarExprT
+              | VVar String
+  deriving (Show, Eq)
+
+instance Expr VarExprT where
+  lit = VLit
+  add = VAdd
+  mul = VMul
+
+instance HasVars VarExprT where
+  var = VVar
+
+instance HasVars (M.Map String Integer -> Maybe Integer) where
+  var v = \m -> (M.lookup v m)
+
+instance Expr (M.Map String Integer -> Maybe Integer) where
+  lit i = \m -> Just i
+  add x y = \m -> (+) <$> (x m) <*> (y m)
+  mul x y = \m -> (*) <$> (x m) <*> (y m)
+
+-- withVars function provided as part of the exercise
+withVars :: [(String, Integer)]
+            -> (M.Map String Integer -> Maybe Integer)
+            -> Maybe Integer
+withVars vs exp = exp $ M.fromList vs

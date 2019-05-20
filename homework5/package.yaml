@@ -25,6 +25,8 @@ library:
   source-dirs: src
   ghc-options:
   - -Wall
+  dependencies:
+  - containers
 
 executables:
   homework5-exe:
