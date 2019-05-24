@@ -16,3 +16,12 @@ fibs1 = fib <$> [0..]
 fibs2 :: [Integer]
 fibs2 = 0 : 1 : fibs 0 1
   where fibs x y = let z = x + y in z : fibs y z
+
+-- Exercise 3
+data Stream a = Cons a (Stream a)
+
+streamToList :: Stream a -> [a]
+streamToList (Cons x xs) = x : streamToList xs
+
+instance Show a => Show (Stream a) where
+  show s = show $ take 20 $ streamToList s
