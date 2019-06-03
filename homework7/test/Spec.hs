@@ -35,4 +35,7 @@ unitTests = testGroup "Unit tests"
   , testCase "indexJ" $
     (all (==True) [(jlToList sampleJL !!? i) == (indexJ i sampleJL) | i <- [-1..5]])
       @? "not equivalent to safe list indexing"
+  , testCase "dropJ" $
+    (all (==True) [jlToList (dropJ n sampleJL) == drop n (jlToList sampleJL) | n <- [-1..5]])
+      @? "not equivalent to list drop"
   ]

@@ -25,9 +25,17 @@ instance (Sized m, Monoid m) => Sized (JoinList m a) where
 
 -- Find the join list element at the specified index. It should be the case that
 -- (indexJ i jl) == (jlToList jl !!? i) for any index `i` and join-list `jl`
-indexJ :: (Sized m, Monoid m) => Int -> JoinList m a -> Maybe a
+indexJ :: (Sized m, Monoid m) =>
+          Int -> JoinList m a -> Maybe a
 indexJ i jl | i < 0 || i >= getSize (size jl) = Nothing
 indexJ 0 (Single _ a) = Just a
 indexJ i (Append _ l r) = let leftSize = getSize (size l) in
    if i < leftSize then indexJ i l else indexJ (i-leftSize) r
 
+dropJ :: (Sized m, Monoid m) =>
+         Int -> JoinList m a -> JoinList m a
+dropJ i jl | i <= 0 = jl
+dropJ _ Empty = Empty
+dropJ _ (Single _ _) = Empty
+dropJ i (Append _ l r) = let leftSize = getSize (size l) in
+  if i < leftSize then (dropJ i l) +++ r else dropJ (i-leftSize) r
