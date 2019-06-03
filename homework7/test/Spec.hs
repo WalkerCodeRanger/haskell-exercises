@@ -4,6 +4,7 @@ import Test.Tasty.HUnit
 
 import JoinList
 import Sized
+import Scrabble
 
 main = defaultMain tests
 
@@ -41,4 +42,10 @@ unitTests = testGroup "Unit tests"
   , testCase "takeJ" $
     (all (==True) [jlToList (takeJ n sampleJL) == take n (jlToList sampleJL) | n <- [-1..5]])
       @? "not equivalent to list take"
+  , testCase "scoreLine" $
+    scoreLine "yay " +++ scoreLine "haskell!" @?=
+      Append (Score 23)
+        (Single (Score 9) "yay ")
+        (Single (Score 14) "haskell!")
+
   ]

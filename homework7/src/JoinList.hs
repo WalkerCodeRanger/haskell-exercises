@@ -1,6 +1,7 @@
 module JoinList where
 
 import Sized
+import Scrabble
 
 -- The JoinList type was provided with the homework
 data JoinList m a = Empty
@@ -54,3 +55,8 @@ takeJ _ Empty = Empty
 takeJ _ jl@(Single _ _) = jl
 takeJ i (Append _ l r) = let leftSize = getSize (size l) in
   if i <= leftSize then takeJ i l else l +++ takeJ (i-leftSize) r
+
+-- Exercise 3
+
+scoreLine :: String -> JoinList Score String
+scoreLine s = Single (scoreString s) s
