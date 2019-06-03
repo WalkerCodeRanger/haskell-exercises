@@ -38,4 +38,7 @@ unitTests = testGroup "Unit tests"
   , testCase "dropJ" $
     (all (==True) [jlToList (dropJ n sampleJL) == drop n (jlToList sampleJL) | n <- [-1..5]])
       @? "not equivalent to list drop"
+  , testCase "takeJ" $
+    (all (==True) [jlToList (takeJ n sampleJL) == take n (jlToList sampleJL) | n <- [-1..5]])
+      @? "not equivalent to list take"
   ]

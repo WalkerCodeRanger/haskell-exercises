@@ -27,15 +27,30 @@ instance (Sized m, Monoid m) => Sized (JoinList m a) where
 -- (indexJ i jl) == (jlToList jl !!? i) for any index `i` and join-list `jl`
 indexJ :: (Sized m, Monoid m) =>
           Int -> JoinList m a -> Maybe a
-indexJ i jl | i < 0 || i >= getSize (size jl) = Nothing
+indexJ i jl
+  | i < 0 = Nothing
+  | i >= getSize (size jl) = Nothing
 indexJ 0 (Single _ a) = Just a
 indexJ i (Append _ l r) = let leftSize = getSize (size l) in
    if i < leftSize then indexJ i l else indexJ (i-leftSize) r
 
 dropJ :: (Sized m, Monoid m) =>
          Int -> JoinList m a -> JoinList m a
-dropJ i jl | i <= 0 = jl
+dropJ i jl
+  | i <= 0 = jl
+  | i >= getSize (size jl) = Empty
 dropJ _ Empty = Empty
 dropJ _ (Single _ _) = Empty
 dropJ i (Append _ l r) = let leftSize = getSize (size l) in
   if i < leftSize then (dropJ i l) +++ r else dropJ (i-leftSize) r
+
+
+takeJ :: (Sized b, Monoid b) =>
+         Int -> JoinList b a -> JoinList b a
+takeJ i jl
+  | i <= 0 = Empty
+  | i >= getSize (size jl) = jl
+takeJ _ Empty = Empty
+takeJ _ jl@(Single _ _) = jl
+takeJ i (Append _ l r) = let leftSize = getSize (size l) in
+  if i <= leftSize then takeJ i l else l +++ takeJ (i-leftSize) r
