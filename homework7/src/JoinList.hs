@@ -77,18 +77,22 @@ scoreLine s = Single (scoreString s) s
 
 instance Buffer (JoinList (Score, Size) String) where
   toString     = unlines . jlToList
-  -- adapted from http://brandon.si/code/building-a-tree-from-an-ordered-list/
-  -- that works by breaking the list into groups 1,2,4,8,... However there the
-  -- values are on the interior nodes whereas here, the values are on the
-  -- leaves. We need 1,1,2,4,8,... We do that by using fromLines to grab the
-  -- first item and then continuing using divide.
   fromString   = fromLines . lines
-    where fromLines []     = Empty
-          fromLines (x:xs) = foldl mkTree (Single (scoreString x, Size 1) x) (divide 1 xs)
-          mkTree tree []   = tree
-          mkTree left rest = left +++ (fromLines rest)
-          divide _ [] = []
-          divide c xs = take c xs : divide (c*2) (drop c xs)
+    -- tried to come up with the most efficient implementation I could. We want
+    -- the resulting tree to be completely balanced (i.e. at every node, the
+    -- size of the child trees differs by at most one). We also want to avoid
+    -- recursing down the list repeatedly. This implementation does so once to
+    -- get the length of the list and again as it builds the tree
+    where fromLines xs = fst $ mkTree (length xs) xs
+          -- Makes a completely balanced tree out of the first n elements of a
+          -- list and returns a pair of the tree and any elements after the
+          -- the first n.
+          mkTree 0 xs     = (Empty, xs)
+          mkTree 1 (x:xs) = (Single (scoreString x, Size 1) x, xs)
+          mkTree n xs     = let half = n `div` 2
+                                (l, ys) = mkTree half xs
+                                (r, zs) = mkTree (n-half) ys in
+                              (l +++ r, zs)
   line         = indexJ
   replaceLine n l b = takeJ n b +++ fromString l +++ dropJ (n+1) b
   numLines     = getSize . snd . tag
