@@ -25,6 +25,8 @@ library:
   source-dirs: src
   ghc-options:
   - -Wall
+  dependencies:
+  - mtl
 
 executables:
   homework7-exe:
