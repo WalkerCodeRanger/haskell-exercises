@@ -24,12 +24,6 @@ _ !!? i | i < 0 = Nothing
 (x:xs) !!? 0 = Just x
 (x:xs) !!? i = xs !!? (i-1)
 
--- Join list to list function provided with the question
-jlToList :: JoinList m a -> [a]
-jlToList Empty = []
-jlToList (Single _ a) = [a]
-jlToList (Append _ l1 l2) = jlToList l1 ++ jlToList l2
-
 unitTests = testGroup "Unit tests"
   [ testCase "+++" $
     ['y', 'e', 'a', 'h'] @=? jlToList sampleJL

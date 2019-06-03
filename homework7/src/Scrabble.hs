@@ -28,3 +28,6 @@ score c
 
 scoreString :: String -> Score
 scoreString s = sum $ map score s
+
+getScore :: Score -> Int
+getScore (Score n) = n
